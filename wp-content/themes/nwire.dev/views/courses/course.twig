@@ -1,0 +1,24 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <main>
+        Cursus: {{ viewmodel.course.post_title }} <br/><br/>
+        {% for structure in viewmodel.structure %}
+            {{ structure.type }}: {{ structure.object.post_title }} <br/>
+            {% if structure.type == 'quiz' %}
+                {% for question in structure.questions %}
+                    - Vraag: {{ question.question }} <br/>
+                    - Type vraag: {{ question.question_type }} <br/>
+                    {% if question.question_type == 'multiple' %}
+                        {% for choice in question.multiple_choice %}
+{#                            {{ dump(question) }}#}
+                            -- Keuze: {{ choice.multiple_choice_choice }} <br/>
+                            -- Correct: {{ choice.multiple_choice_choice_correct }} <br/><br/>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+    </main>
+{% endblock %}
